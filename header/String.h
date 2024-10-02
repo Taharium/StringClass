@@ -21,6 +21,9 @@ class String {
         bool operator== (const String& str) const;
 
         friend std::ostream& operator<<(std::ostream& stream, const String& other);
+		String& operator+=(const String& other);
+		String& operator+=(const char* stringtoAppend);
+
         static size_t getLength(const char* str);
 
     private:

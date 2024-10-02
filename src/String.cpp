@@ -134,6 +134,55 @@ bool String::operator== (const String& str) const {
     return true;
 }
 
+String& String::operator+=(const String& other) {
+    if(other.m_string == nullptr || getLength(other.m_string) <= 0){
+        return *this;
+    }
+    size_t newLength = m_length + other.m_length;
+	char* str = new char[newLength + 1];
+
+	for (int i = 0; i < m_length; i++) {
+		str[i] = m_string[i];
+	}
+
+    for (int i = 0; i < other.m_length; i++) {
+        str[m_length + i] = other.m_string[i];
+    }
+
+	delete m_string;
+	m_string = str;
+	m_length = newLength;
+	m_capacity = newLength + 1;
+	m_string[m_length] = '\0';
+    return *this;
+}
+
+String& String::operator+=(const char* stringtoAppend) {
+    if(stringtoAppend == nullptr || getLength(stringtoAppend) <= 0){
+        return *this;
+    }
+
+	size_t lengthOfOtherString = getLength(stringtoAppend);
+	size_t newLength = m_length + lengthOfOtherString;
+	char* str = new char[newLength + 1];
+	
+    for (int i = 0; i < m_length; i++) {
+		str[i] = m_string[i];
+	}
+
+	for (int i = 0; i < lengthOfOtherString; i++) {
+		str[m_length + i] = stringtoAppend[i];
+	}
+
+	delete m_string;
+	m_string = str;
+	m_length = newLength;
+	m_capacity = newLength + 1;
+	m_string[m_length] = '\0';
+	return *this;
+
+}
+
 //destructor
 String::~String(){
     delete[] m_string;

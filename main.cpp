@@ -105,4 +105,23 @@ int main(){
     assert("Expected: 30" && d.getCapacity() == capacity);
     //std::cout << "reserve(10)" << '\n';
     //std::cout << "getCapacity()(20): " << d.getCapacity() << '\n';
+
+    String test_conc = "ToConcatenateto";
+    String test_conc2 = "TobeConcatenated";
+    test_conc += test_conc2;
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc == "ToConcatenatetoTobeConcatenated");
+
+    test_conc += nullptr;
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc == "ToConcatenatetoTobeConcatenated"); 
+    test_conc += "";
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc == "ToConcatenatetoTobeConcatenated"); 
+
+    String test_conc3 = "ToConcatenateto";
+    test_conc3 += "TobeConcatenated";
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc3 == "ToConcatenatetoTobeConcatenated");
+    test_conc3 += nullptr;
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc3 == "ToConcatenatetoTobeConcatenated"); 
+    test_conc3 += "";
+    assert("Expected: ToConcatenatetoTobeConcatenated" && test_conc3 == "ToConcatenatetoTobeConcatenated"); 
+
 }
