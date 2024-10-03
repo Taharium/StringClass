@@ -33,7 +33,7 @@ class String {
         static size_t getLength(const char* str);
 
     private:
-        void memcpy(char* des, const char* src, size_t size);
+        static void memcpy(char* des, const char* src, size_t size);
 
     private:
         char * m_string;

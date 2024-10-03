@@ -1,5 +1,4 @@
 #include "../header/String.h"
-#include "String.h"
 
 //default constructor
 String::String() : m_string(nullptr), m_length(0), m_capacity(0) {}
@@ -196,8 +195,8 @@ String operator+(const char* str1, const String& str2) {
     size_t lengthOfString1 = String::getLength(str1);
     size_t newStringLength = str2.m_length + lengthOfString1 + 1;
     newString.reserve(newStringLength);
-    memcpy(newString.m_string, str1, lengthOfString1);
-    memcpy(newString.m_string + lengthOfString1, str2.m_string, str2.m_length);
+    String::memcpy(newString.m_string, str1, lengthOfString1);
+    String::memcpy(newString.m_string + lengthOfString1, str2.m_string, str2.m_length);
     newString.m_string[newStringLength - 1] = '\0';
     newString.m_length = newStringLength - 1;
     newString.m_capacity = newStringLength;
