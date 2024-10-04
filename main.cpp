@@ -151,6 +151,8 @@ TEST_CASE("main"){
 
     assert(nullptr == concat5);
 
-    puts(d);
+    int res = puts(d);
+    CHECK(res >= 0);
+
 
 }
