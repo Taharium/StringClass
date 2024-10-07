@@ -150,6 +150,10 @@ TEST_CASE("main"){
     //std::cout << concat5 << '\n';
 
     assert(nullptr == concat5);
+    
+    String hello = "HELLO";
+    const char* test_bye = "BYE"; 
+    CHECK(hello != test_bye);
 
     int res = puts(d);
     CHECK(res >= 0);
