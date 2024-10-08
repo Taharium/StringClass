@@ -16,12 +16,7 @@ class String {
         const char* c_str() const;
         size_t size() const;
         void reserve(size_t size);
-<<<<<<< HEAD
-
-=======
-        size_t getCapacity() const;        
->>>>>>> master
-
+        size_t getCapacity() const;
     public:
         bool operator== (const String& str) const;
         bool operator!= (const String& str) const;
@@ -32,6 +27,26 @@ class String {
 		String& operator+=(const char* stringtoAppend);
 		String operator+(const String& string);
 		String operator+(const char* string);
+
+        class Iterator {
+        public:
+            Iterator(char* ptr);
+            Iterator& operator++();
+            Iterator operator++(int);
+            Iterator& operator--();
+            Iterator operator--(int);
+            char& operator*();
+            char& operator->();
+            bool operator!=(const Iterator& other) const;
+            bool operator==(const Iterator& other) const;
+
+        private:
+            char* m_ptr;
+        };
+
+        Iterator begin() const;
+        Iterator end() const;
+
 		friend String operator+(const char* str1, const String& str2);
         
         friend std::ostream& operator<<(std::ostream& stream, const String& other);

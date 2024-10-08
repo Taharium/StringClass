@@ -5,7 +5,7 @@
 #include <string>
 
 
-doctest
+//doctest
 TEST_CASE("main"){
 
     //Arrange append

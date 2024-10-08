@@ -273,6 +273,57 @@ void String::memcpy(char* des, const char* src, size_t size) {
 
 }
 
+String::Iterator String::begin() const {
+    return Iterator(m_string);
+}
+
+String::Iterator String::end() const {
+    return Iterator(m_string + m_length);
+}
+
+String::Iterator::Iterator(char* ptr) : m_ptr(ptr) {}
+
+String::Iterator& String::Iterator::operator++() {
+    m_ptr++;
+    return *this;
+}
+
+String::Iterator String::Iterator::operator++(int) {
+    Iterator temp = *this;
+    ++(*this);
+    return temp;
+}
+
+String::Iterator& String::Iterator::operator--() {
+    m_ptr--;
+    return *this;
+}
+
+String::Iterator String::Iterator::operator--(int) {
+    Iterator temp = *this;
+    --(*this);
+    return temp;
+}
+
+char& String::Iterator::operator*() {
+    return *m_ptr;
+}
+
+char& String::Iterator::operator->() {
+    return *m_ptr;
+}
+
+bool String::Iterator::operator!=(const Iterator& other) const {
+    return m_ptr != other.m_ptr;
+}
+
+bool String::Iterator::operator==(const Iterator& other) const {
+    return m_ptr == other.m_ptr;
+}
+
+
+
+
 std::ostream& operator<<(std::ostream& stream, const String& other){
     stream << other.m_string;
     return stream;
