@@ -22,6 +22,24 @@ class String {
         operator const char*() const{
             return this->c_str();
         }
+        class Iterator {
+		    public:
+			    Iterator(char* ptr);
+			    Iterator& operator++();
+			    Iterator operator++(int);
+                Iterator& operator--();
+			    Iterator operator--(int);
+			    char& operator*();
+				char& operator->();
+			    bool operator!=(const Iterator& other) const;
+			    bool operator==(const Iterator& other) const;
+
+            private:
+				char* m_ptr;
+        };
+
+		Iterator begin() const;
+		Iterator end() const;
 
         friend std::ostream& operator<<(std::ostream& stream, const String& other);
 		String& operator+=(const String& other);
@@ -39,4 +57,5 @@ class String {
         char * m_string;
         size_t m_length;
         size_t m_capacity;
+
 };

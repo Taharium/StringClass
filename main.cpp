@@ -2,10 +2,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "header/doctest.h"
 #include <cassert>
+#include <string>
 
 
-
-//doctest
+doctest
 TEST_CASE("main"){
 
     //Arrange append
@@ -153,6 +153,18 @@ TEST_CASE("main"){
 
     int res = puts(d);
     CHECK(res >= 0);
+
+    const String test("Hello");
+    for (String::Iterator it = test.begin(); it != test.end(); ++it) {
+        std::cout << *it << '\n'; 
+    }
+
+	//Test with nullptr std::string doesnt do anything it is a seg fault during runtime. 
+	//How do we want to handle this?
+	/*std::string test_null = nullptr;
+	for (auto it = test_null.begin(); it != test_null.end(); ++it) {
+		std::cout << *it << '\n';
+	}*/
 
 
 }
