@@ -1,7 +1,7 @@
 #include "header/String.h"
+#include <cassert>
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "header/doctest.h"
-#include <cassert>
 
 
 

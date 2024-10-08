@@ -237,8 +237,24 @@ void String::reserve(size_t size) {
     }
 }
 
+String::iterator String::begin() const {
+    return iterator(m_string);
+}
 
-size_t String::getLength(const char* str) {
+String::iterator String::end() const {
+    return iterator(m_string + m_length);
+}
+
+String::iterator String::rbegin() const {
+    return iterator(m_string + m_length);
+}
+
+String::iterator String::rend() const {
+    return iterator(m_string);
+}
+
+size_t String::getLength(const char *str)
+{
     if(!str){
         return -1;
     }
