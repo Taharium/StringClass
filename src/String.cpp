@@ -1,4 +1,5 @@
 #include "../header/String.h"
+#include "String.h"
 
 //default constructor
 String::String() : m_string(nullptr), m_length(0), m_capacity(0) {}
@@ -92,6 +93,10 @@ String& String::operator=(String&& other) {
     return *this;
 }
 
+String::operator const char* () const{
+    return this->c_str();
+}
+
 size_t String::size() const {
     return m_length;
 }
@@ -117,6 +122,10 @@ bool String::operator== (const String& str) const {
     return true;
 }
 
+bool String::operator!=(const String &str) const {
+    return !(*this == str);
+}
+
 bool String::operator== (const char* str) const {
     if(getLength(str) != m_length){
         return false;
@@ -130,6 +139,10 @@ bool String::operator== (const char* str) const {
     return true;
 }
 
+bool String::operator!=(const char *str) const {
+    return !(*this == str);
+}
+
 //String::operator const char *() const 
 
 String& String::operator+=(const String& stringToAppend) {
@@ -140,6 +153,7 @@ String& String::operator+=(const char* stringToAppend) {
     return appendNew(stringToAppend);
 }
 
+ 
 String String::operator+(const String& string) {
     String newString;
 
@@ -157,6 +171,7 @@ String String::operator+(const String& string) {
     
     size_t newStringLength = m_length + string.m_length + 1;
     newString.reserve(newStringLength);
+    //TODO: in one function beginning with me
     memcpy(newString.m_string, m_string, m_length);
     memcpy(newString.m_string + m_length, string.m_string, string.m_length);
     newString.m_string[newStringLength - 1] = '\0';
@@ -222,10 +237,6 @@ void String::reserve(size_t size) {
     }
 }
 
-std::ostream& operator<<(std::ostream& stream, const String& other){
-    stream << other.m_string;
-    return stream;
-}
 
 size_t String::getLength(const char* str) {
     if(!str){
@@ -262,54 +273,8 @@ void String::memcpy(char* des, const char* src, size_t size) {
 
 }
 
-String::Iterator String::begin() const {
-    return Iterator(m_string);
+std::ostream& operator<<(std::ostream& stream, const String& other){
+    stream << other.m_string;
+    return stream;
 }
-
-String::Iterator String::end() const {
-    return Iterator(m_string + m_length);
-}
-
-String::Iterator::Iterator(char* ptr) : m_ptr(ptr) {}
-
-String::Iterator& String::Iterator::operator++() {
-	m_ptr++;
-	return *this;
-}
-
-String::Iterator String::Iterator::operator++(int) {
-	Iterator temp = *this;
-	++(*this);
-	return temp;
-}
-
-String::Iterator& String::Iterator::operator--() {
-	m_ptr--;
-	return *this;
-}
-
-String::Iterator String::Iterator::operator--(int) {
-	Iterator temp = *this;
-	--(*this);
-	return temp;
-}
-
-char& String::Iterator::operator*() {
-	return *m_ptr;
-}
-
-char& String::Iterator::operator->() {
-	return *m_ptr;
-}
-
-bool String::Iterator::operator!=(const Iterator& other) const {
-	return m_ptr != other.m_ptr;
-}
-
-bool String::Iterator::operator==(const Iterator& other) const {
-	return m_ptr == other.m_ptr;
-}
-
-
-
 
