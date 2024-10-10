@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Iterator.h"
+#include "Reverse_iterator.h"
 
 class String {
     public:
@@ -32,10 +33,11 @@ class String {
     
     public:
         using iterator = Iterator<char>;
+        using reverse_iterator = Reverse_iterator<iterator>;
         iterator begin() const;
         iterator end() const;
-        iterator rbegin() const;
-        iterator rend() const;
+        reverse_iterator rbegin() const;
+        reverse_iterator rend() const;
 
     public:
 		friend String operator+(const char* str1, const String& str2);

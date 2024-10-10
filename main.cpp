@@ -2,6 +2,8 @@
 #include <cassert>
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "header/doctest.h"
+#include <vector>
+#include <algorithm>
 
 
 
@@ -159,4 +161,76 @@ TEST_CASE("main"){
     CHECK(res >= 0);
 
 
+}
+
+/* int main(){
+    String a = "HELLO";
+
+    auto b = a.rend();
+    std::cout << *b << '\n';
+
+    for(auto it = a.rend(); it != a.rbegin(); --it) {
+        std::cout << *it << '\n';
+    }
+
+    std::string test2 = "HELLO";
+    std::cout << "DHDH\n";
+    for(auto it = test2.rend(); it != test2.rbegin(); --it){
+        std::cout << *it << '\n';
+    }
+    
+    for(auto it = a.end(); it != a.begin(); --it) {
+        std::cout << *it << '\n';
+    }
+
+    std::string test2 = "HELLO";
+    std::cout << "DHDH\n";
+    for(auto it = test2.end(); it != test2.begin(); --it){
+        std::cout << *it << '\n';
+    }
+}
+ */
+
+
+
+TEST_CASE("TEST"){
+
+    String test("Hello World");
+    for (auto it = test.begin(); it != test.end(); ++it){
+        std::cout << *it << '\n';
+    }
+    
+    std::cout << "\n\n";
+    String test2 = "HELLO";
+    for(auto it = test2.rbegin(); it != test2.rend(); ++it){
+        std::cout << *it << '\n';
+    }
+
+    std::cout << "\n\n";
+    String test3 = "HELLO";
+    for(auto it = test3.rend(); it != test3.rbegin(); --it){
+        std::cout << *it << '\n';
+    }
+
+    std::cout << "\n\n";
+    String test4("Hello World");
+    for (auto it = test4.end(); it != test4.begin(); --it){
+        std::cout << *it << '\n';
+    }
+
+    std::cout << "\n\n";
+    std::string test5 = "HELLO";
+    for(auto it = test5.rend(); it != test5.rbegin(); --it){
+        std::cout << *it << '\n';
+    }
+
+    std::cout << "\n\n";
+    std::string test6("HelloWorld");
+    for (auto it = test6.end(); it != test6.begin(); --it){
+        std::cout << *it << '\n';
+    }
+    
+
+    std::cout << (std::find(test.begin(), test.end(), 'W') != test.end()) << '\n';
+    std::cout << (std::find(test.rbegin(), test.rend(), 'W') != test.rend()) << '\n';
 }

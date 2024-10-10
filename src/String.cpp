@@ -1,5 +1,4 @@
 #include "../header/String.h"
-#include "String.h"
 
 //default constructor
 String::String() : m_string(nullptr), m_length(0), m_capacity(0) {}
@@ -16,31 +15,6 @@ String::String(const char* str){
     m_string = new char[m_capacity];
     memcpy(m_string, str, m_capacity);
     m_string[m_capacity - 1] = '\0';
-}
-
-String& String::appendNew(const String& stringToAppend) {
-    if(m_string && stringToAppend.m_string && stringToAppend.m_length > 0){        //check if string is nullptr
-        size_t lengthOfOtherString = stringToAppend.m_length;
-        size_t lengthOfNewString = m_length + lengthOfOtherString + 1;
-        if(m_capacity < lengthOfNewString){
-            char* newString = new char[lengthOfNewString];
-            memcpy(newString, m_string, m_length);
-            memcpy(newString + m_length, stringToAppend.m_string, lengthOfOtherString);
-            newString[lengthOfNewString - 1] = '\0';
-            delete[] m_string;
-            m_string = newString;
-            m_capacity = lengthOfNewString;
-            m_length = lengthOfNewString - 1; 
-            newString = nullptr;
-        }
-        else {
-            memcpy(m_string, stringToAppend.m_string, lengthOfOtherString);
-            m_string[lengthOfOtherString - 1] = '\0';
-            m_capacity = lengthOfNewString;
-            m_length = lengthOfNewString - 1; 
-        }
-    }
-    return *this;
 }
 
 //copy assignment
@@ -93,20 +67,63 @@ String& String::operator=(String&& other) {
     return *this;
 }
 
-String::operator const char* () const{
-    return this->c_str();
+//destructor
+String::~String(){
+    delete[] m_string;
+}
+
+String& String::appendNew(const String& stringToAppend) {
+    if(m_string && stringToAppend.m_string && stringToAppend.m_length > 0){        //check if string is nullptr
+        size_t lengthOfOtherString = stringToAppend.m_length;
+        size_t lengthOfNewString = m_length + lengthOfOtherString + 1;
+        if(m_capacity < lengthOfNewString){
+            char* newString = new char[lengthOfNewString];
+            memcpy(newString, m_string, m_length);
+            memcpy(newString + m_length, stringToAppend.m_string, lengthOfOtherString);
+            newString[lengthOfNewString - 1] = '\0';
+            delete[] m_string;
+            m_string = newString;
+            m_capacity = lengthOfNewString;
+            m_length = lengthOfNewString - 1; 
+            newString = nullptr;
+        }
+        else {
+            memcpy(m_string, stringToAppend.m_string, lengthOfOtherString);
+            m_string[lengthOfOtherString - 1] = '\0';
+            m_capacity = lengthOfNewString;
+            m_length = lengthOfNewString - 1; 
+        }
+    }
+    return *this;
+}
+
+const char* String::c_str() const {
+    return m_string;
 }
 
 size_t String::size() const {
     return m_length;
 }
 
+//reserve size
+void String::reserve(size_t size) {
+    if(m_capacity >= size){
+        return;
+    }
+
+    if(m_capacity < size){
+        m_string = (char*)std::realloc(m_string, size);
+        m_capacity = size;
+        m_string[m_capacity - 1] = '\0';
+    }
+}
+
 size_t String::getCapacity() const {
     return m_capacity;
 }
 
-const char* String::c_str() const {
-    return m_string;
+String::operator const char* () const{
+    return this->c_str();
 }
 
 bool String::operator== (const String& str) const {
@@ -200,6 +217,22 @@ String String::operator+(const char* string) {
     return newString;
 }
 
+String::iterator String::begin() const {
+    return iterator(m_string);
+}
+
+String::iterator String::end() const {
+    return iterator(m_string + m_length);
+}
+
+String::reverse_iterator String::rbegin() const {
+    return reverse_iterator(end());
+}
+
+String::reverse_iterator String::rend() const {
+    return reverse_iterator(begin());
+}
+
 String operator+(const char* str1, const String& str2) {
     String newString;
 
@@ -219,38 +252,9 @@ String operator+(const char* str1, const String& str2) {
     return newString;
 }
 
-//destructor
-String::~String(){
-    delete[] m_string;
-}
-
-//reserve size
-void String::reserve(size_t size) {
-    if(m_capacity >= size){
-        return;
-    }
-
-    if(m_capacity < size){
-        m_string = (char*)std::realloc(m_string, size);
-        m_capacity = size;
-        m_string[m_capacity - 1] = '\0';
-    }
-}
-
-String::iterator String::begin() const {
-    return iterator(m_string);
-}
-
-String::iterator String::end() const {
-    return iterator(m_string + m_length);
-}
-
-String::iterator String::rbegin() const {
-    return iterator(m_string + m_length);
-}
-
-String::iterator String::rend() const {
-    return iterator(m_string);
+std::ostream& operator<<(std::ostream& stream, const String& other){
+    stream << other.m_string;
+    return stream;
 }
 
 size_t String::getLength(const char *str)
@@ -287,9 +291,4 @@ void String::memcpy(char* des, const char* src, size_t size) {
         ++psrc;
     }
 
-}
-
-std::ostream& operator<<(std::ostream& stream, const String& other){
-    stream << other.m_string;
-    return stream;
 }
