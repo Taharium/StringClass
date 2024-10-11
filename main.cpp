@@ -195,7 +195,7 @@ TEST_CASE("main"){
 
 TEST_CASE("TEST"){
 
-    String test("Hello World");
+    const String test("Hello World");
     for (auto it = test.begin(); it != test.end(); ++it){
         std::cout << *it << '\n';
     }
