@@ -89,9 +89,9 @@ String& String::appendNew(const String& stringToAppend) {
         }
         else {
             memcpy(m_string + m_length, stringToAppend.m_string, lengthOfOtherString);
-            m_string[lengthOfNewString - 1] = '\0';
+            m_string[m_length + lengthOfOtherString] = '\0';
             //m_capacity = lengthOfNewString;
-            m_length += lengthOfNewString; 
+            m_length += lengthOfOtherString; 
         }
     }
     return *this;

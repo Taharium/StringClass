@@ -157,7 +157,18 @@ TEST_CASE("main"){
     int res = puts(d);
     CHECK(res >= 0);
 
+    //test for capcity higher then string to append
+    String testAppend;
+    testAppend.reserve(10);
+    testAppend.appendNew("test");
 
+    CHECK_EQ(10, testAppend.getCapacity());
+    CHECK_EQ(4, testAppend.size());
+
+    //test for capcity lower then string to append
+    testAppend.appendNew("test1234");
+    CHECK_EQ(13, testAppend.getCapacity());
+    CHECK_EQ(12, testAppend.size());
 }
 
 /* int main(){
