@@ -1,12 +1,9 @@
 #include "header/String.h"
 #include <cassert>
+#include <iostream>
+
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "header/doctest.h"
-#include <vector>
-#include <algorithm>
-
-
-
 //doctest
 TEST_CASE("main"){
 
@@ -151,7 +148,7 @@ TEST_CASE("main"){
     String concat5 = null + null2;
     //std::cout << concat5 << '\n';
 
-    assert(nullptr == concat5);
+    assert(nullptr == concat5.c_str());
     
     String hello = "HELLO";
     const char* test_bye = "BYE"; 
@@ -190,8 +187,6 @@ TEST_CASE("main"){
     }
 }
  */
-
-
 
 TEST_CASE("TEST"){
 

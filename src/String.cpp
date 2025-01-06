@@ -88,10 +88,10 @@ String& String::appendNew(const String& stringToAppend) {
             newString = nullptr;
         }
         else {
-            memcpy(m_string, stringToAppend.m_string, lengthOfOtherString);
-            m_string[lengthOfOtherString - 1] = '\0';
-            m_capacity = lengthOfNewString;
-            m_length = lengthOfNewString - 1; 
+            memcpy(m_string + m_length, stringToAppend.m_string, lengthOfOtherString);
+            m_string[lengthOfNewString - 1] = '\0';
+            //m_capacity = lengthOfNewString;
+            m_length += lengthOfNewString; 
         }
     }
     return *this;
@@ -175,7 +175,7 @@ String String::operator+(const String& string) {
     String newString;
 
     if(!m_string && !string.m_string){
-        return nullptr;
+        return String();
     }
 
     if(!m_string){
